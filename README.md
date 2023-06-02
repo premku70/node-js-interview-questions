@@ -13,9 +13,11 @@ Node js ,express js
 Certainly! Here are the answers to the Node.js interview questions:
 
 1.### What is Node.js?
+
 Node.js is an open-source, server-side runtime environment built on Chrome's V8 JavaScript engine. It allows developers to run JavaScript code outside of a web browser and enables server-side and networking applications.
 
 2.### What are the key features of Node.js?
+
 Key features of Node.js include:
 - Asynchronous and event-driven programming model
 - Non-blocking I/O operations
@@ -722,7 +724,7 @@ Here's an overview of some common operations you can perform using the `fs` modu
      ```
 
 ---
-3. ### Node js Fork Vs Spwan Vs Exec?
+53. ### Node js Fork Vs Spwan Vs Exec?
 
 In Node.js, there are three main ways to create child processes: `fork()`, `spawn()`, and `exec()` functions. Each of these methods has its own purpose and use cases. Let's go through each of them:
 
