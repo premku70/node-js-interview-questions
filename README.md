@@ -115,7 +115,8 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
     **[⬆ Back to Top](#table-of-contents)**
 
 2. ### What is Fs Module?
-                                                                                                                     |                                              In Node.js, the `fs` module is built-in and provides an API for interacting with the file system. It allows you to perform various file-related operations, such as reading from and writing to files,creating and deleting files and directories, and modifying file permissions.
+                                                                                                                     |                                              In Node.js, the `fs` module is built-in and provides an API for interacting with the file system. 
+It allows you to perform various file-related operations, such as reading from and writing to files,creating and deleting files and directories,and modifying file permissions.
 Here's an overview of some common operations you can perform using the `fs` module:
 
 1. Reading Files:
