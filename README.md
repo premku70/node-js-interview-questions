@@ -13,7 +13,8 @@ Node js ,express js
 
 1.  ### What are node js child process?
 
-In Node.js, the `child_process` module provides functionality to spawn child processes and communicate with them. This module allows you to run external commands or scripts from your Node.js application and interact with their input/output streams.
+In Node.js, the `child_process` module provides functionality to spawn child processes and communicate with them. 
+This module allows you to run external commands or scripts from your Node.js application and interact with their input/output streams.
 
 There are several ways to create child processes in Node.js using the `child_process` module. Here are the main methods:
 
@@ -114,7 +115,8 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
     **[⬆ Back to Top](#table-of-contents)**
 
 2. ### What is Fs Module?
-                                                                                                                     |                                              In Node.js, the `fs` module is built-in and provides an API for interacting with the file system. It allows you to perform various file-related operations, such as reading from and writing to files, creating and deleting files and directories, and modifying file permissions. Here's an overview of some common operations you can perform using the `fs` module:
+                                                                                                                     |                                              In Node.js, the `fs` module is built-in and provides an API for interacting with the file system. It allows you to perform various file-related operations, such as reading from and writing to files,creating and deleting files and directories, and modifying file permissions.
+Here's an overview of some common operations you can perform using the `fs` module:
 
 1. Reading Files:
    - `fs.readFile()`: Reads the contents of a file asynchronously. It takes the file path and an optional encoding as parameters. Example:
