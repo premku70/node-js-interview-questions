@@ -113,7 +113,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
 
     **[⬆ Back to Top](#table-of-contents)**
 
-2. What is Fs Module?
+2. ### What is Fs Module?
                                                                                                                      |                                              In Node.js, the `fs` module is built-in and provides an API for interacting with the file system. It allows you to perform various file-related operations, such as reading from and writing to files, creating and deleting files and directories, and modifying file permissions. Here's an overview of some common operations you can perform using the `fs` module:
 
 1. Reading Files:
@@ -228,7 +228,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      ```
 
 
-1. Renaming and Moving Files:
+5. Renaming and Moving Files:
    - `fs.rename()`: Renames a file or moves it to a different location asynchronously. Example:
      ```javascript
      const fs = require('fs');
@@ -239,7 +239,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      });
      ```
 
-2. File Permissions:
+6. File Permissions:
    - `fs.chmod()`: Changes the permissions of a file asynchronously. Example:
      ```javascript
      const fs = require('fs');
@@ -250,7 +250,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      });
      ```
 
-3. File Streams:
+7. File Streams:
    - `fs.createReadStream()`: Creates a readable stream to read data from a file. Example:
      ```javascript
      const fs = require('fs');
@@ -270,7 +270,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      writableStream.end();
      ```
 
-4. File System Events:
+8. File System Events:
    - `fs.watch()`: Watches for changes in a file or directory and emits events when they occur. Example:
      ```javascript
      const fs = require('fs');
@@ -281,7 +281,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      });
      ```
 
-5. File Path Operations:
+9. File Path Operations:
    - `fs.join()`: Joins multiple path segments into a single path string. Example:
      ```javascript
      const fs = require('fs');
@@ -298,7 +298,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      const absolutePath = path.resolve('files', 'file.txt');
      ```
 
-1. File Read/Write Options:
+10. File Read/Write Options:
    - `fs.readFile()` and `fs.readFileSync()`:
      - You can pass an object as an optional parameter to specify additional options for reading files, such as the `flag` to control file opening behavior.
      - Example:
@@ -323,7 +323,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
        });
        ```
 
-2. File System Constants:
+11. File System Constants:
    - The `fs` module provides several constants that represent file system-related values, such as file access modes, file types, and file system error codes.
    - Example:
      ```javascript
@@ -334,7 +334,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      console.log(fs.constants.ENOENT); // Error code constant
      ```
 
-3. Directory Operations:
+12. Directory Operations:
    - `fs.readdirSync()`: Reads the contents of a directory synchronously and returns an array of file names.
    - Example:
      ```javascript
@@ -355,7 +355,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      });
      ```
 
-4. File Watching Options:
+13. File Watching Options:
    - `fs.watch()`:
      - You can pass options to customize the behavior of the `fs.watch()` method, such as the `persistent` option to control if the watcher stays active after an event is emitted.
      - Example:
@@ -368,7 +368,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
        });
        ```
 
-5. File System Promises:
+14. File System Promises:
    - Starting from Node.js 14, the `fs` module provides experimental promises-based versions of its functions. You can use `fs.promises` to access the promise-based versions.
    - Example:
      ```javascript
@@ -384,7 +384,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      ```
 
 
-1. File Watching:
+15. File Watching:
    - `fs.watchFile()`: Watches a file for changes by periodically polling its metadata. It emits a `change` event when the file is modified.
    - Example:
      ```javascript
@@ -397,7 +397,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      });
      ```
 
-2. File Descriptors:
+16. File Descriptors:
    - `fs.open()`: Opens a file and returns a file descriptor, which is a unique identifier for the opened file. You can use the file descriptor with other `fs` methods to perform operations on the file.
    - Example:
      ```javascript
@@ -416,7 +416,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      });
      ```
 
-3. File Truncation:
+17. File Truncation:
    - `fs.truncate()`: Truncates a file to a specified length asynchronously. If the file is larger than the specified length, it is truncated to the given size. If the file is smaller, its size remains unchanged.
    - Example:
      ```javascript
@@ -428,7 +428,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      });
      ```
 
-4. Symbolic Links:
+18. Symbolic Links:
    - `fs.symlink()`: Creates a symbolic link asynchronously. You can create either a file or directory symbolic link.
    - Example:
      ```javascript
@@ -440,7 +440,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      });
      ```
 
-5. File Compression:
+19. File Compression:
    - The `fs` module provides methods to work with compressed files using zlib and other compression libraries.
    - Example:
      ```javascript
@@ -454,7 +454,7 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
      readStream.pipe(gzip).pipe(writeStream);
      ```
 
-6. File Permissions:
+20. File Permissions:
    - `fs.access()`: Tests the user's permissions for a file or directory asynchronously.
    - Example:
      ```javascript
@@ -553,8 +553,5 @@ const child = execFile('node', ['--version'], (error, stdout, stderr) => {
 
      readFile();
      ```
-
-
-                                                               |
 
 ---
