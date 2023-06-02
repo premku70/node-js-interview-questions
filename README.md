@@ -558,3 +558,244 @@ Here's an overview of some common operations you can perform using the `fs` modu
      ```
 
 ---
+3. ### Node js Fork Vs Spwan Vs Exec?
+
+In Node.js, there are three main ways to create child processes: `fork()`, `spawn()`, and `exec()` functions. Each of these methods has its own purpose and use cases. Let's go through each of them:
+
+1. `fork()`: The `fork()` function is used to create a new Node.js process that is a copy of the parent process. It is specifically designed for creating child processes that run JavaScript modules. The `fork()` method allows for communication between the parent and child processes using IPC (Inter-Process Communication) channels, which makes it convenient for building applications that require parallel processing or worker systems.
+
+2. `spawn()`: The `spawn()` function is used to launch a new process in Node.js. It allows you to execute commands in a separate process and provides streaming access to the input/output of the child process. You can use it to execute any command available in your system's shell, such as running executables, scripts, or other CLI tools. The `spawn()` function returns a `ChildProcess` object that represents the spawned process and allows you to interact with it.
+
+3. `exec()`: The `exec()` function is similar to `spawn()` but provides a simpler interface for executing shell commands. It takes a command as a string and runs it in a shell. Unlike `spawn()`, `exec()` buffers the command's output and provides it in a callback function. It is useful for executing single commands and getting the resulting output or handling errors.
+
+To summarize:
+- Use `fork()` when you want to create child processes that run JavaScript modules and require communication between the parent and child processes.
+- Use `spawn()` when you need to execute commands or scripts and want streaming access to the input/output of the child process.
+- Use `exec()` when you want to execute a single command in a shell and retrieve the command's output or handle errors.
+
+Each of these methods has its strengths and use cases, so choose the one that best suits your specific requirements.
+ Let's go through an example for each method:
+
+1. `fork()` Example:
+   ```javascript
+   // parent.js
+   const { fork } = require('child_process');
+
+   // Create a child process by forking the current module
+   const child = fork('child.js');
+
+   // Send a message to the child process
+   child.send({ hello: 'world' });
+
+   // Listen for messages from the child process
+   child.on('message', (message) => {
+     console.log('Received message from child:', message);
+   });
+   ```
+
+   ```javascript
+   // child.js
+   process.on('message', (message) => {
+     console.log('Received message from parent:', message);
+
+     // Send a message back to the parent process
+     process.send({ greetings: 'Hello from the child' });
+   });
+   ```
+
+   In this example, the parent process forks the `child.js` module as a separate child process. They communicate by sending messages back and forth using `process.send()` and `process.on('message')`.
+
+2. `spawn()` Example:
+   ```javascript
+   const { spawn } = require('child_process');
+
+   // Execute the "ls" command to list files in the current directory
+   const ls = spawn('ls', ['-l', '-a']);
+
+   // Listen for the output of the command
+   ls.stdout.on('data', (data) => {
+     console.log(`Output: ${data}`);
+   });
+
+   // Listen for any errors that occur during execution
+   ls.on('error', (err) => {
+     console.error(`Error: ${err.message}`);
+   });
+
+   // Listen for the command to exit
+   ls.on('close', (code) => {
+     console.log(`Command exited with code ${code}`);
+   });
+   ```
+
+   This example uses `spawn()` to execute the `ls -l -a` command, which lists files in the current directory. It captures the output of the command through the `stdout` stream and handles errors and the command's exit.
+
+3. `exec()` Example:
+   ```javascript
+   const { exec } = require('child_process');
+
+   // Execute the "echo" command to print a message
+   exec('echo Hello, World!', (error, stdout, stderr) => {
+     if (error) {
+       console.error(`Error: ${error.message}`);
+       return;
+     }
+
+     console.log(`Output: ${stdout}`);
+     console.error(`Error output: ${stderr}`);
+   });
+   ```
+
+   In this example, `exec()` is used to execute the `echo` command to print a message. The resulting output is captured in the callback function and can be accessed through `stdout`. Any errors or error output from the command are also handled.
+
+Certainly! Here are a few more examples to illustrate the usage of `fork()`, `spawn()`, and `exec()` in different scenarios:
+
+1. `fork()` Example with Event Emitter:
+   ```javascript
+   // parent.js
+   const { fork } = require('child_process');
+   const child = fork('child.js');
+
+   // Listen for custom events emitted by the child process
+   child.on('customEvent', (data) => {
+     console.log('Received custom event data:', data);
+   });
+
+   // Send a custom event to the child process
+   child.emit('customEvent', { message: 'Hello from parent' });
+   ```
+
+   ```javascript
+   // child.js
+   const EventEmitter = require('events');
+   const customEmitter = new EventEmitter();
+
+   // Listen for custom events emitted by the parent process
+   customEmitter.on('customEvent', (data) => {
+     console.log('Received custom event data:', data);
+   });
+
+   // Emit a custom event to the parent process
+   customEmitter.emit('customEvent', { message: 'Hello from child' });
+   ```
+
+   This example showcases communication between the parent and child processes using custom events. Both the parent and child processes create an event emitter instance and exchange data by emitting and listening to custom events.
+
+2. `spawn()` Example with Capturing Command Output:
+   ```javascript
+   const { spawn } = require('child_process');
+
+   // Execute the "git" command to fetch a remote repository
+   const gitFetch = spawn('git', ['fetch', 'origin']);
+
+   // Capture the output of the command
+   let commandOutput = '';
+   gitFetch.stdout.on('data', (data) => {
+     commandOutput += data;
+   });
+
+   // Listen for the command to exit
+   gitFetch.on('close', (code) => {
+     console.log('Command output:', commandOutput);
+     console.log(`Command exited with code ${code}`);
+   });
+   ```
+
+   This example demonstrates using `spawn()` to execute the `git fetch origin` command to fetch updates from a remote repository. The output of the command is captured and stored in the `commandOutput` variable, which is then logged once the command finishes executing.
+
+3. `exec()` Example with Error Handling:
+   ```javascript
+   const { exec } = require('child_process');
+
+   // Execute a command that may produce an error
+   exec('some-invalid-command', (error, stdout, stderr) => {
+     if (error) {
+       console.error(`Error: ${error.message}`);
+       return;
+     }
+
+     console.log(`Output: ${stdout}`);
+     console.error(`Error output: ${stderr}`);
+   });
+   ```
+
+   In this example, `exec()` is used to execute a command (`some-invalid-command`) that is intentionally invalid. Since the command is invalid, an error occurs, and the error message is logged. Additionally, the `stdout` and `stderr` streams are captured and can be accessed for further analysis.
+
+Certainly! Here are a few more examples showcasing the usage of `fork()`, `spawn()`, and `exec()` in different scenarios:
+
+1. `fork()` Example with File System Operations:
+   ```javascript
+   // parent.js
+   const { fork } = require('child_process');
+   const child = fork('child.js');
+
+   // Send a file path to the child process
+   const filePath = '/path/to/file.txt';
+   child.send(filePath);
+
+   // Listen for messages from the child process
+   child.on('message', (message) => {
+     console.log('Received file contents:', message);
+   });
+   ```
+
+   ```javascript
+   // child.js
+   const fs = require('fs');
+   process.on('message', (filePath) => {
+     fs.readFile(filePath, 'utf8', (err, data) => {
+       if (err) {
+         console.error(`Error reading file: ${err.message}`);
+         return;
+       }
+       process.send(data);
+     });
+   });
+   ```
+
+   In this example, the parent process forks the `child.js` module. It sends a file path to the child process, which then reads the contents of the file using the `fs.readFile()` method. The child process sends the file contents back to the parent process using `process.send()`.
+
+2. `spawn()` Example with Streaming Data:
+   ```javascript
+   const { spawn } = require('child_process');
+
+   // Execute a command that generates streaming data
+   const command = 'node';
+   const args = ['streamingScript.js'];
+   const streamingProcess = spawn(command, args);
+
+   // Stream and process the output of the command
+   streamingProcess.stdout.on('data', (data) => {
+     // Process the data as it comes in
+     console.log(`Received data chunk: ${data}`);
+   });
+
+   // Listen for the command to exit
+   streamingProcess.on('close', (code) => {
+     console.log(`Command exited with code ${code}`);
+   });
+   ```
+
+   In this example, `spawn()` is used to execute a command (`node streamingScript.js`) that generates streaming data. The output is captured through the `stdout` stream, and you can process it as data chunks arrive. You can perform real-time operations on the received data.
+
+3. `exec()` Example with Environment Variables:
+   ```javascript
+   const { exec } = require('child_process');
+
+   // Execute a command that relies on environment variables
+   const envVariable = 'SOME_VAR=example';
+   const command = `echo $SOME_VAR`;
+   const options = { env: { ...process.env, envVariable } };
+
+   exec(command, options, (error, stdout, stderr) => {
+     if (error) {
+       console.error(`Error: ${error.message}`);
+       return;
+     }
+
+     console.log(`Output: ${stdout}`);
+     console.error(`Error output: ${stderr}`);
+   });
+   ```
+
+   This example demonstrates using `exec()` to execute a command (`echo $SOME_VAR`) that relies on an environment variable (`SOME_VAR`). The `options` object is used to pass the environment variable to the child process, along with the current environment variables from `process.env`. The resulting output is captured and logged.
